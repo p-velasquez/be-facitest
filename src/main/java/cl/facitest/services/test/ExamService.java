@@ -21,7 +21,7 @@ public class ExamService implements IExamService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExamService.class);
 
     @Override
-    public List<Exam> getTests() {
+    public List<Exam> getExams() {
         try {
             return (List<Exam>) examRepository.findAll();
         } catch (Exception e) {
@@ -30,29 +30,29 @@ public class ExamService implements IExamService {
     }
 
     @Override
-    public Exam getTestById(Long id) {
+    public Exam getExamById(Long id) {
         return examRepository.findById(id)
-                .orElseThrow(() -> new ExamNotFoundException("Test with ID " + id + " not found."));
+                .orElseThrow(() -> new ExamNotFoundException("Exam with ID " + id + " not found."));
     }
 
     @Override
-    public void createTest(Exam exam) {
+    public void createExam(Exam exam) {
         try {
-            LOGGER.info("Creating a new test: {}", exam);
-            List<Exam> exams = getTests();
+            LOGGER.info("Creating a new exam: {}", exam);
+            List<Exam> exams = getExams();
             boolean testExists = exams.stream()
                     .anyMatch(existingExam -> existingExam.getId().equals(exam.getId())
                             || existingExam.getName().equals(exam.getName()));
 
             if (testExists) {
-                LOGGER.warn("Test already exists: {}", exam);
-                throw new ExamAlreadyExistsException("Test with ID " + exam.getId() + " already exists.");
+                LOGGER.warn("Exam already exists: {}", exam);
+                throw new ExamAlreadyExistsException("Exam with ID " + exam.getId() + " already exists.");
             }
 
             examRepository.save(exam);
         } catch (Exception e) {
-            LOGGER.error("Error while creating test: {}", exam.getName(), e);
-            throw new RuntimeException("Error saving test", e);
+            LOGGER.error("Error while creating exam: {}", exam.getName(), e);
+            throw new RuntimeException("Error saving exam", e);
         }
     }
 }

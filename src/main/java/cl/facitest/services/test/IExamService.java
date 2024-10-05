@@ -5,8 +5,8 @@ import cl.facitest.models.Exam;
 import java.util.List;
 
 public interface IExamService {
-    List<Exam> getTests();
-    void createTest(Exam exam);
+    List<Exam> getExams();
+    void createExam(Exam exam);
 
-    Exam getTestById(Long id);
+    Exam getExamById(Long id);
 }

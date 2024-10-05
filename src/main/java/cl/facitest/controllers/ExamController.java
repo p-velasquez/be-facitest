@@ -23,21 +23,21 @@ public class ExamController {
 
     private IExamService iExamService;
     @Autowired
-    public void setiTestService(IExamService iExamService){this.iExamService = iExamService;}
+    public void setiExamService(IExamService iExamService){this.iExamService = iExamService;}
     @PostMapping
-    public ResponseEntity<BaseResponse> createTest(@Validated @RequestBody Exam exam) {
+    public ResponseEntity<BaseResponse> createExam(@Validated @RequestBody Exam exam) {
         try {
-            iExamService.createTest(exam);
-            return ResponseEntity.status(ExamResponseCodes.TEST_CREATED.getHttpStatus())
+            iExamService.createExam(exam);
+            return ResponseEntity.status(ExamResponseCodes.EXAM_CREATED.getHttpStatus())
                     .body(BaseResponse.builder()
-                            .code(ExamResponseCodes.TEST_CREATED.getCode())
-                            .message(ExamResponseCodes.TEST_CREATED.getMessage())
+                            .code(ExamResponseCodes.EXAM_CREATED.getCode())
+                            .message(ExamResponseCodes.EXAM_CREATED.getMessage())
                             .build());
         } catch (ExamAlreadyExistsException e) {
-            return ResponseEntity.status(ExamResponseCodes.TEST_ALREADY_EXISTS.getHttpStatus())
+            return ResponseEntity.status(ExamResponseCodes.EXAM_ALREADY_EXISTS.getHttpStatus())
                     .body(BaseResponse.builder()
-                            .code(ExamResponseCodes.TEST_ALREADY_EXISTS.getCode())
-                            .message(ExamResponseCodes.TEST_ALREADY_EXISTS.getMessage())
+                            .code(ExamResponseCodes.EXAM_ALREADY_EXISTS.getCode())
+                            .message(ExamResponseCodes.EXAM_ALREADY_EXISTS.getMessage())
                             .build());
         } catch (Exception e) {
             return ResponseEntity.status(ExamResponseCodes.INTERNAL_SERVER_ERROR.getHttpStatus())
@@ -49,20 +49,20 @@ public class ExamController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ExamResponse> getTestById(@Validated @PathVariable Long id) {
+    public ResponseEntity<ExamResponse> getExamById(@Validated @PathVariable Long id) {
         try {
-            Exam exam = iExamService.getTestById(id);
-            return ResponseEntity.status(ExamResponseCodes.TEST_CREATED.getHttpStatus())
+            Exam exam = iExamService.getExamById(id);
+            return ResponseEntity.status(ExamResponseCodes.EXAM_CREATED.getHttpStatus())
                     .body(ExamResponse.builder()
-                            .code(ExamResponseCodes.TEST_CREATED.getCode())
-                            .message(ExamResponseCodes.TEST_CREATED.getMessage())
+                            .code(ExamResponseCodes.EXAM_CREATED.getCode())
+                            .message(ExamResponseCodes.EXAM_CREATED.getMessage())
                             .file(exam.getFile())
                             .build());
         } catch (ExamNotFoundException e) {
-            return ResponseEntity.status(ExamResponseCodes.TEST_NOT_FOUND.getHttpStatus())
+            return ResponseEntity.status(ExamResponseCodes.EXAM_NOT_FOUND.getHttpStatus())
                     .body(ExamResponse.builder()
-                            .code(ExamResponseCodes.TEST_NOT_FOUND.getCode())
-                            .message(ExamResponseCodes.TEST_NOT_FOUND.getMessage())
+                            .code(ExamResponseCodes.EXAM_NOT_FOUND.getCode())
+                            .message(ExamResponseCodes.EXAM_NOT_FOUND.getMessage())
                             .build());
         } catch (Exception e) {
             return ResponseEntity.status(ExamResponseCodes.INTERNAL_SERVER_ERROR.getHttpStatus())
