@@ -23,7 +23,9 @@ public class ExamController {
 
     private IExamService iExamService;
     @Autowired
-    public void setiExamService(IExamService iExamService){this.iExamService = iExamService;}
+    public void setiExamService(IExamService iExamService){
+        this.iExamService = iExamService;
+    }
     @PostMapping
     public ResponseEntity<BaseResponse> createExam(@Validated @RequestBody Exam exam) {
         try {
